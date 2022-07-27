@@ -31,3 +31,8 @@ link to CSV .https://ark-funds.com/wp-content/uploads/funds-etf-csv/ARK_NEXT_GEN
 https://www.nbim.no/en/the-fund/investments/#/2021/investments/equities
 
 link to CSV : blob:https://www.nbim.no/7d80c5ec-0b10-441b-83ad-dadfdd2035ed
+
+------
+
+Developement:
+Ambientes virtuais a serem criados devem ter o nome "envname" para o .gitignore apanha-lo e n
