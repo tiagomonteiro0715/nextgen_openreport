@@ -4,20 +4,17 @@ Before running this script, place the .csv files in "https://github.com/tiagomon
 
 import pandas as pd
 
-
-df_collection = {
+arkPathsArr = ["CSVFILES/ARK/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv","CSVFILES/ARK/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv","CSVFILES/ARK/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv"]
+#tentar com array de paths fazer função unica para recolher informações, á base de ficheiros na pasta. range(len(arkPathsArr))
+df_ark_collection = {
     0: " ",
     1: " ",
-    2: " "
+    2: " ",
 }
 
-path_robotics = "CSVFILES/ARK_AUTONOMOUS_TECH._&_ROBOTICS_ETF_ARKQ_HOLDINGS.csv"
-path_internet = "CSVFILES/ARK_NEXT_GENERATION_INTERNET_ETF_ARKW_HOLDINGS.csv"
-path_DNA = "CSVFILES/ARK_GENOMIC_REVOLUTION_ETF_ARKG_HOLDINGS.csv"
-
 count = 0
-def filterArkinvestCSV(path, save):
-
+def filterArkinvestCSV(path, countervar):
+    global count
     df = pd.read_csv(path)
 
     df.sort_values(['market value ($)'], ascending=False)
@@ -27,17 +24,39 @@ def filterArkinvestCSV(path, save):
     for collum in range(len(collums_to_drop)):
         df = df.drop(collums_to_drop[collum], axis = 1)
 
-    df = df.head(10)
+    countervar = countervar + 1
 
-    df_collection[save] = df
+    df_ark_collection[countervar] = df
 
-    print("\n\nDate of " + path + " file is " + date)
+    print(df)
 
-filterArkinvestCSV(path_robotics, 0)
-filterArkinvestCSV(path_internet, 1)
-filterArkinvestCSV(path_DNA, 2)
+    print("\nDate of " + path + " file is \n\n\n" + date)
 
 
 for i in range(3):
-    print("\n\n")
-    print(df_collection[i])   
+    filterArkinvestCSV(arkPathsArr[i], count)
+    print("\n\n-------------------------------------\n\n" + str(count) + "\n\n-------------------------------------\n\n")
+
+#------------------------------------------------------------------------------------------
+
+df_fund_collection = {
+    0:" ",
+    1:" ",
+    2:" "
+}
+
+fundPathsArr = ["CSVFILES/FUND/ENERGY.csv","CSVFILES/FUND/HEALTH_CARE_FUND.csv","CSVFILES/FUND/TECH_FUND.csv"  ]
+
+
+def filterFundinvestCSV(path):
+    df = pd.read_csv(path)
+
+    collums_to_drop = ['nok', "sector", "ownership", "id", "type", "voting"]
+    for collum in range(len(collums_to_drop)):
+        df = df.drop(collums_to_drop[collum], axis = 1)
+
+    df = df.sort_values(['usd'], ascending=False)
+
+    df = df.reset_index(drop="index")
+
+filterFundinvestCSV(fundPathsArr[0])
