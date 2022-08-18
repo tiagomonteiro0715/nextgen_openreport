@@ -12,9 +12,9 @@ df_ark_collection = {
     2: " ",
 }
 
-count = 0
+countArk = 0
 def filterArkinvestCSV(path, countervar):
-    global count
+    global countArk
     df = pd.read_csv(path)
 
     df.sort_values(['market value ($)'], ascending=False)
@@ -32,13 +32,14 @@ def filterArkinvestCSV(path, countervar):
 
     print("\nDate of " + path + " file is \n\n\n" + date)
 
-
+'''
 for i in range(3):
-    filterArkinvestCSV(arkPathsArr[i], count)
-    print("\n\n-------------------------------------\n\n" + str(count) + "\n\n-------------------------------------\n\n")
-
+    filterArkinvestCSV(arkPathsArr[i], countArk)
+    print("\n\n-------------------------------------\n\n" + str(countArk) + "\n\n-------------------------------------\n\n")
+'''
 #------------------------------------------------------------------------------------------
 
+countFund = 0
 df_fund_collection = {
     0:" ",
     1:" ",
@@ -48,7 +49,7 @@ df_fund_collection = {
 fundPathsArr = ["CSVFILES/FUND/ENERGY.csv","CSVFILES/FUND/HEALTH_CARE_FUND.csv","CSVFILES/FUND/TECH_FUND.csv"  ]
 
 
-def filterFundinvestCSV(path):
+def filterFundinvestCSV(path, countervar):
     df = pd.read_csv(path)
 
     collums_to_drop = ['nok', "sector", "ownership", "id", "type", "voting"]
@@ -59,4 +60,6 @@ def filterFundinvestCSV(path):
 
     df = df.reset_index(drop="index")
 
-filterFundinvestCSV(fundPathsArr[0])
+    countervar = countervar + 1
+
+    df_fund_collection[countervar] = df
